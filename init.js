@@ -3,9 +3,14 @@ const Client = require('./models/Client');
 const Trainee = require('./models/Trainee');
 const Trainer = require('./models/Trainer');
 const Batch = require('./models/Batch');
+require('dotenv').config();
 
 async function initializeData() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/trainingDatabase');
+    // Connect to MongoDB
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
     // Drop all collections
     const collections = ['clients', 'trainees', 'trainers', 'batches','attendances'];
